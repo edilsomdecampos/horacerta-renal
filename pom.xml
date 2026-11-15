@@ -56,13 +56,6 @@
             <artifactId>flyway-database-postgresql</artifactId>
         </dependency>
 
-        <!-- Project Lombok: getters, setters e construtores limpos -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
         <!-- Starter Test: JUnit 5 e Mockito -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

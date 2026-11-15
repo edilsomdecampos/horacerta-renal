@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HoraCerta Renal | Hub Clínico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #040711;
+            --surface: rgba(13, 20, 36, 0.7);
+            --surface-hover: rgba(20, 30, 54, 0.85);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(56, 189, 248, 0.35);
+            --primary: #0284c7;
+            --cyan: #38bdf8;
+            --cyan-glow: rgba(56, 189, 248, 0.25);
+            --emerald: #10b981;
+            --emerald-glow: rgba(16, 185, 129, 0.2);
+            --amber: #f59e0b;
+            --danger: #ef4444;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-dim: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(1000px circle at 0% 0%, rgba(2, 132, 199, 0.18) 0%, transparent 60%),
+                radial-gradient(800px circle at 100% 100%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+                radial-gradient(400px circle at 50% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 80%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 30px 16px;
+        }
+
+        .app-shell {
+            width: 100%;
+            max-width: 1240px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .glass {
+            background: var(--surface);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        /* HEADER */
+        .brand-header {
+            padding: 22px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 160px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+        }
+
+        .brand-identity {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand-icon-box {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(2, 132, 199, 0.05));
+            border: 1px solid var(--border-highlight);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 25px var(--cyan-glow);
+            position: relative;
+        }
+
+        .pulse-indicator {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 10px;
+            height: 10px;
+            background: var(--emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--emerald);
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.9); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.4; }
+            100% { transform: scale(0.9); opacity: 1; }
+        }
+
+        .brand-titles h1 {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -0.6px;
+            text-transform: uppercase;
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #ffffff 40%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-tag {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 99px;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--cyan);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            -webkit-text-fill-color: var(--cyan);
+        }
+
+        .brand-tagline {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 3px;
+        }
+
+        .brand-tagline strong {
+            color: #f1f5f9;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-modern {
+            padding: 11px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-audio-pill {
+            background: rgba(56, 189, 248, 0.08);
+            color: var(--cyan);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+        }
+
+        .btn-audio-pill:hover {
+            background: rgba(56, 189, 248, 0.16);
+            transform: translateY(-2px);
+        }
+
+        .btn-audio-pill.ativo {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-whatsapp-elite {
+            background: #25d366;
+            color: #04120a;
+            box-shadow: 0 8px 20px -5px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-whatsapp-elite:hover {
+            transform: translateY(-2px);
+            background: #2ee06e;
+        }
+
+        /* STATUS STRIP */
+        .patient-strip {
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            background: linear-gradient(90deg, rgba(14, 23, 42, 0.8) 0%, rgba(13, 20, 36, 0.5) 100%);
+            border-left: 3px solid var(--cyan);
+        }
+
+        .patient-profile {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .patient-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .patient-details h2 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .patient-details p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .dialysis-badge {
+            background: rgba(16, 185, 129, 0.12);
+            color: #34d399;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            text-transform: uppercase;
+        }
+
+        .clinical-alert {
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(245, 158, 11, 0.06);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 14px;
+            font-size: 13px;
+            color: #fde68a;
+            line-height: 1.5;
+        }
+
+        /* GRID PRINCIPAL */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 430px 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .workspace-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* FORMULÁRIO */
+        .control-panel {
+            padding: 24px;
+        }
+
+        .control-panel h3 {
+            font-size: 15px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-pills {
+            display: flex;
+            background: rgba(6, 10, 20, 0.7);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            gap: 4px;
+            margin-bottom: 18px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 9px 8px;
+            border-radius: 8px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .nav-btn.active {
+            background: var(--surface-hover);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .input-block {
+            margin-bottom: 14px;
+        }
+
+        .input-block label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: rgba(5, 9, 18, 0.75);
+            border: 1px solid var(--border);
+            color: #ffffff;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .btn-cta {
+            flex: 1;
+            padding: 14px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-cancel {
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: none;
+        }
+
+        .toast {
+            margin-top: 14px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            display: none;
+            text-align: center;
+        }
+        .toast.success { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .toast.error { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+        /* LISTAGEM */
+        .telemetry-panel {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-dock {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            background: rgba(6, 10, 20, 0.7);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            gap: 4px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 8px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active {
+            background: var(--surface-hover);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .count-pill {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 7px;
+            border-radius: 99px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .cards-stream {
+            display: grid;
+            gap: 12px;
+            max-height: 580px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .cards-stream::-webkit-scrollbar {
+            width: 5px;
+        }
+        .cards-stream::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .stream-card {
+            background: rgba(8, 13, 26, 0.65);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .stream-card:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+            background: rgba(12, 19, 36, 0.85);
+        }
+
+        .card-core {
+            flex: 1;
+        }
+
+        .card-core h4 {
+            font-size: 14px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .card-core p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .card-metadata {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 6px;
+            font-size: 11px;
+        }
+
+        .meta-tag {
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+        }
+
+        .meta-tag.stock-ok {
+            color: var(--cyan);
+            border-color: rgba(56, 189, 248, 0.25);
+        }
+
+        .meta-tag.stock-low {
+            color: #f87171;
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .meta-tag.obs {
+            color: #fbbf24;
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .card-aside {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .status-chip {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 5px 9px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .chip-home {
+            background: rgba(16, 185, 129, 0.12);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .chip-clinic {
+            background: rgba(2, 132, 199, 0.15);
+            color: var(--cyan);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .chip-agenda {
+            background: rgba(245, 158, 11, 0.12);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        /* BOTÃO TOMEI A DOSE / CONCLUIR */
+        .btn-dose {
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-dose:hover:not(:disabled) {
+            background: #10b981;
+            color: #04120a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-dose:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* CRUD BUTTONS */
+        .crud-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+        }
+
+        .btn-icon:hover {
+            color: #ffffff;
+            transform: scale(1.08);
+        }
+
+        .btn-icon.edit:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .btn-icon.delete:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-shell">
+        
+        <!-- HEADER -->
+        <header class="glass brand-header">
+            <div class="brand-identity">
+                <div class="brand-icon-box">
+                    <span style="font-size: 24px;">⚡</span>
+                    <div class="pulse-indicator"></div>
+                </div>
+                <div class="brand-titles">
+                    <h1>
+                        HoraCerta Renal
+                        <span class="brand-tag">Hub Clínico Ativo</span>
+                    </h1>
+                    <p class="brand-tagline">
+                        <strong>A tecnologia a seu favor</strong> — Proteção, precisão de horários e telemetria para rotina dialítica.
+                    </p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button class="btn-modern btn-audio-pill" id="btnAudio" onclick="habilitarSistemaAlertas()">
+                    <span>🔔</span>
+                    <span>Ativar Alertas Sonoros</span>
+                </button>
+                <a href="#" target="_blank" class="btn-modern btn-whatsapp-elite" id="whatsappBtn">
+                    <svg style="width: 17px; height: 17px; fill: currentColor;" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.53c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.24-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.12-.22-.19-.47-.32Z"/></svg>
+                    <span>WhatsApp de Apoio</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- STATUS PACIENTE -->
+        <section class="glass patient-strip">
+            <div class="patient-profile">
+                <div class="patient-avatar">🫀</div>
+                <div class="patient-details">
+                    <h2><span id="nomePaciente">Mariaely Marins Bento de Campos</span></h2>
+                    <p>Acompanhante: <strong id="nomeAcompanhante">Edilson (Esposo)</strong> | Tel: <span id="telAcompanhante">---</span></p>
+                </div>
+            </div>
+            <div class="dialysis-badge" id="badgeStatus">
+                Sessões: Terça / Quinta / Sábado
+            </div>
+        </section>
+
+        <!-- DIRETRIZ -->
+        <div class="clinical-alert">
+            <span style="font-size: 18px;">🛡️</span>
+            <span>
+                <strong>Diretriz de Segurança:</strong> Os quelantes de fósforo (Sevelâmer / Carbonato de Cálcio) atuam exclusivamente durante a digestão alimentar. Medicamentos de hemodiálise são restritos à equipe de enfermagem da clínica.
+            </span>
+        </div>
+
+        <!-- WORKSPACE CRUD -->
+        <main class="workspace-grid">
+            
+            <!-- CONTROLE / ENTRADA -->
+            <section class="glass control-panel">
+                <h3>
+                    <span id="formTitulo">Centro de Lançamentos</span>
+                    <span style="font-size: 11px; color: var(--text-dim); font-weight: 600;">PostgreSQL Sync</span>
+                </h3>
+
+                <div class="nav-pills">
+                    <button class="nav-btn active" id="btn-tab-paciente" onclick="alternarFormulario('PACIENTE')">👤 Paciente</button>
+                    <button class="nav-btn" id="btn-tab-med" onclick="alternarFormulario('MED')">💊 Medicamento</button>
+                    <button class="nav-btn" id="btn-tab-agenda" onclick="alternarFormulario('AGENDA')">🗓️ Agenda</button>
+                </div>
+
+                <!-- 1. PACIENTE -->
+                <form id="pacienteForm">
+                    <div class="input-block">
+                        <label for="cadNomePaciente">Nome do Paciente</label>
+                        <input type="text" class="input-field" id="cadNomePaciente" value="Mariaely Marins Bento de Campos" required>
+                    </div>
+
+                    <div class="input-block">
+                        <label for="cadTelPaciente">Celular do Paciente</label>
+                        <input type="text" class="input-field" id="cadTelPaciente" placeholder="Ex: 15998765432" required>
+                    </div>
+
+                    <div class="input-block">
+                        <label for="cadNomeAcompanhante">Acompanhante Responsável</label>
+                        <input type="text" class="input-field" id="cadNomeAcompanhante" value="Edilson (Esposo)" required>
+                    </div>
+
+                    <div class="input-block">
+                        <label for="cadTelAcompanhante">WhatsApp do Acompanhante</label>
+                        <input type="text" class="input-field" id="cadTelAcompanhante" placeholder="Ex: 15991234567" required>
+                    </div>
+
+                    <div class="input-block">
+                        <label for="cadObsClinicas">Rotina de Diálise / Observações</label>
+                        <input type="text" class="input-field" id="cadObsClinicas" value="Diálise Ter / Qui / Sáb - Protocolo Renal Ativo">
+                    </div>
+
+                    <button type="button" class="btn-cta" onclick="salvarPacienteForm()">
+                        Atualizar Cadastro do Paciente
+                    </button>
+                </form>
+
+                <!-- 2. MEDICAMENTO COM ESTOQUE E OBSERVAÇÃO CLÍNICA -->
+                <form id="medForm" style="display: none;">
+                    <input type="hidden" id="medId">
+
+                    <div class="input-block">
+                        <label for="nome">Nome do Medicamento</label>
+                        <input type="text" class="input-field" id="nome" placeholder="Ex: Carvedilol 6,25mg ou Sevelâmer" required autocomplete="off">
+                    </div>
+
+                    <div class="input-block">
+                        <label for="localAdministracao">Ambiente de Uso</label>
+                        <select class="input-field" id="localAdministracao" onchange="alternarCamposUsoDomestico()">
+                            <option value="USO_DOMESTICO">🏠 Em Casa (Dispara Alarme Sonoro)</option>
+                            <option value="CLINICA_HEMODIALISE">🏥 Clínica de Hemodiálise (Prontuário)</option>
+                        </select>
+                    </div>
+
+                    <div id="blocoHorariosDomesticos">
+                        <div class="input-block">
+                            <label for="frequenciaAlerta">Frequência da Dose (Intervalo)</label>
+                            <select class="input-field" id="frequenciaAlerta" onchange="ajustarExibicaoHorarios()">
+                                <option value="12H">A cada 12 horas (2x ao dia)</option>
+                                <option value="8H">A cada 8 horas (3x ao dia)</option>
+                                <option value="24H">1 vez ao dia (24 horas)</option>
+                                <option value="REFEICOES">Refeições Principais (Almoço 12:00 / Jantar 19:30)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-block" id="grupoHorarioAlerta">
+                            <label for="horarioAlerta">Primeiro Horário da Dose</label>
+                            <input type="time" class="input-field" id="horarioAlerta" value="08:00">
+                        </div>
+                    </div>
+
+                    <div class="input-block">
+                        <label for="apresentacao">Posologia / Instrução</label>
+                        <input type="text" class="input-field" id="apresentacao" placeholder="Ex: 1 comp pela manhã e 1 à noite" required autocomplete="off">
+                    </div>
+
+                    <div class="input-block">
+                        <label for="quantidadeEstoque">📦 Quantidade em Estoque (Comprimidos/Doses)</label>
+                        <input type="number" class="input-field" id="quantidadeEstoque" min="0" placeholder="Ex: 30, 60, 180" value="0">
+                    </div>
+
+                    <div class="input-block">
+                        <label for="observacoes">📝 Anotações / Conduta Médica</label>
+                        <input type="text" class="input-field" id="observacoes" maxlength="500" placeholder="Ex: Reduzido para 1x/semana na sessão de terça-feira" autocomplete="off">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-cta" id="btnSalvarMed" onclick="salvarMedicamento()">
+                            Salvar no Prontuário
+                        </button>
+                        <button type="button" class="btn-cancel" id="btnCancelarMed" onclick="cancelarEdicaoMed()">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+
+                <!-- 3. AGENDA (CRUD COMPLETO) -->
+                <form id="agendaForm" style="display: none;">
+                    <input type="hidden" id="agendaId">
+
+                    <div class="input-block">
+                        <label for="tipoEvento">Natureza do Evento</label>
+                        <select class="input-field" id="tipoEvento">
+                            <option value="EXAME">🧪 Exame Periódico</option>
+                            <option value="CONSULTA">👨‍⚕️ Consulta Médica</option>
+                            <option value="FARMACIA_ALTO_CUSTO">💊 Farmácia de Alto Custo</option>
+                        </select>
+                    </div>
+
+                    <div class="input-block">
+                        <label for="descricaoEvento">Descrição do Compromisso</label>
+                        <input type="text" class="input-field" id="descricaoEvento" placeholder="Ex: Consulta Nefrologia" required autocomplete="off">
+                    </div>
+
+                    <div class="input-block">
+                        <label for="localDestino">Local de Destino</label>
+                        <input type="text" class="input-field" id="localDestino" placeholder="Ex: Sorocaba / Hospital Dorim (SP)" required autocomplete="off">
+                    </div>
+
+                    <div class="input-block">
+                        <label for="dataHora">Data e Horário</label>
+                        <input type="datetime-local" class="input-field" id="dataHora" required>
+                    </div>
+
+                    <div class="input-block" style="display: flex; align-items: center; gap: 10px; margin-top: 8px;">
+                        <input type="checkbox" id="precisaTransporte" style="width: 18px; height: 18px; accent-color: var(--cyan);"> 
+                        <label for="precisaTransporte" style="margin-bottom: 0; cursor: pointer;">Solicitar Transporte Sanitário Municipal</label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-cta" id="btnSalvarAgenda" onclick="salvarAgendamento()">
+                            Registrar na Agenda
+                        </button>
+                        <button type="button" class="btn-cancel" id="btnCancelarAgenda" onclick="cancelarEdicaoAgenda()">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+
+                <div id="feedback" class="toast"></div>
+            </section>
+
+            <!-- TELEMETRIA COM CARDS E BOTÕES VISÍVEIS -->
+            <section class="glass telemetry-panel">
+                <div class="filter-dock">
+                    <div class="filter-tabs">
+                        <button class="filter-btn active" id="tab-todos" onclick="filtrarAba('TODOS')">
+                            Todos <span class="count-pill" id="count-todos">0</span>
+                        </button>
+                        <button class="filter-btn" id="tab-domestico" onclick="filtrarAba('USO_DOMESTICO')">
+                            🏠 Em Casa <span class="count-pill" id="count-domestico">0</span>
+                        </button>
+                        <button class="filter-btn" id="tab-clinica" onclick="filtrarAba('CLINICA_HEMODIALISE')">
+                            🏥 Clínica <span class="count-pill" id="count-clinica">0</span>
+                        </button>
+                        <button class="filter-btn" id="tab-agenda" onclick="filtrarAba('AGENDA')">
+                            🗓️ Agenda <span class="count-pill" id="count-agenda">0</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="cards-stream" id="listaConteudo"></div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script>
+        let medicamentosMemoria = [];
+        let agendamentosMemoria = [];
+        let pacienteAtual = null;
+        let abaAtiva = 'TODOS';
+        let audioCtx = null;
+        const alertasDisparadosHoje = new Set();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            inicializarDados();
+            setInterval(monitorarAlertasTempoReal, 30000);
+        });
+
+        async function inicializarDados() {
+            await carregarPaciente();
+            await carregarMedicamentos();
+            await carregarAgendamentos();
+        }
+
+        /* GERADOR DE ÁUDIO NATIVO */
+        function tocarBipAlerta() {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                function bip(freq, start, duration) {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime + start);
+                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime + start);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + start + duration);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(audioCtx.currentTime + start);
+                    osc.stop(audioCtx.currentTime + start + duration);
+                }
+
+                bip(880, 0, 0.15);
+                bip(880, 0.25, 0.15);
+            } catch (e) {
+                console.warn("Áudio:", e);
+            }
+        }
+
+        function habilitarSistemaAlertas() {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                audioCtx.resume();
+                tocarBipAlerta();
+
+                if ("Notification" in window) {
+                    Notification.requestPermission().then(perm => {
+                        const btn = document.getElementById('btnAudio');
+                        btn.classList.add('ativo');
+                        btn.innerHTML = '<span>🔊</span><span>Alertas Ativos</span>';
+                        mostrarFeedback("Vigilância sonora ativada com sucesso!", "success");
+                    });
+                } else {
+                    document.getElementById('btnAudio').classList.add('ativo');
+                    mostrarFeedback("Alertas sonoros ativados no navegador!", "success");
+                }
+            } catch (err) {
+                console.error("Falha ao habilitar áudio:", err);
+            }
+        }
+
+        /* MOTOR MATEMÁTICO: RECONHECE INTERVALOS E HORÁRIOS MÚLTIPLOS */
+        function monitorarAlertasTempoReal() {
+            const agora = new Date();
+            const horasMinutos = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+            medicamentosMemoria
+                .filter(m => m.localAdministracao === 'USO_DOMESTICO')
+                .forEach(med => {
+                    const posologia = med.apresentacao || "";
+                    
+                    const matchColchetes = posologia.match(/\[(.*?)\]/);
+                    let deveDisparar = false;
+
+                    if (matchColchetes) {
+                        const listaHorarios = matchColchetes[1].split(',').map(h => h.trim());
+                        deveDisparar = listaHorarios.includes(horasMinutos);
+                    } else if (posologia.includes(horasMinutos)) {
+                        deveDisparar = true;
+                    }
+
+                    if (deveDisparar) {
+                        const chave = `MED-${med.id}-${horasMinutos}`;
+                        if (!alertasDisparadosHoje.has(chave)) {
+                            alertasDisparadosHoje.add(chave);
+                            executarDisparo("💊 Hora do Remédio em Casa", `${med.nome} (${posologia})`);
+                        }
+                    }
+                });
+
+            agendamentosMemoria
+                .filter(ag => !ag.concluido)
+                .forEach(ag => {
+                    const dataEvento = new Date(ag.dataHora);
+                    const diffMinutos = Math.round((dataEvento - agora) / 60000);
+
+                    if (diffMinutos === 60 || (diffMinutos >= 0 && diffMinutos <= 2)) {
+                        const chave = `AG-${ag.id}-${diffMinutos}`;
+                        if (!alertasDisparadosHoje.has(chave)) {
+                            alertasDisparadosHoje.add(chave);
+                            executarDisparo("🗓️ Alerta de Compromisso", `${ag.descricao} em ${ag.localDestino} (${ag.tipoEvento})`);
+                        }
+                    }
+                });
+        }
+
+        function executarDisparo(titulo, corpo) {
+            tocarBipAlerta();
+            if ("Notification" in window && Notification.permission === "granted") {
+                new Notification(titulo, {
+                    body: corpo,
+                    icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><text y="20" font-size="20">🩺</text></svg>'
+                });
+            }
+            mostrarFeedback(`${titulo}: ${corpo}`, "success");
+        }
+
+        function alternarCamposUsoDomestico() {
+            const local = document.getElementById('localAdministracao').value;
+            document.getElementById('blocoHorariosDomesticos').style.display = (local === 'USO_DOMESTICO') ? 'block' : 'none';
+        }
+
+        function ajustarExibicaoHorarios() {
+            const freq = document.getElementById('frequenciaAlerta').value;
+            const grupo = document.getElementById('grupoHorarioAlerta');
+            grupo.style.display = (freq === 'REFEICOES') ? 'none' : 'block';
+        }
+
+        /* 1. PACIENTE */
+        async function carregarPaciente() {
+            try {
+                const res = await fetch('/api/pacientes');
+                if (res.ok) {
+                    const pacientes = await res.json();
+                    if (pacientes.length > 0) {
+                        pacienteAtual = pacientes[0];
+                        document.getElementById('nomePaciente').innerText = pacienteAtual.nome;
+                        document.getElementById('nomeAcompanhante').innerText = pacienteAtual.nomeAcompanhante;
+                        document.getElementById('telAcompanhante').innerText = pacienteAtual.telefoneAcompanhante || '---';
+                        
+                        document.getElementById('cadNomePaciente').value = pacienteAtual.nome;
+                        document.getElementById('cadTelPaciente').value = pacienteAtual.telefonePaciente || '';
+                        document.getElementById('cadNomeAcompanhante').value = pacienteAtual.nomeAcompanhante;
+                        document.getElementById('cadTelAcompanhante').value = pacienteAtual.telefoneAcompanhante || '';
+                        document.getElementById('cadObsClinicas').value = pacienteAtual.observacoesClinicas || '';
+
+                        if (pacienteAtual.telefoneAcompanhante) {
+                            const numLimpo = pacienteAtual.telefoneAcompanhante.replace(/\D/g, '');
+                            const msg = encodeURIComponent(`Olá, estou no sistema HoraCerta acompanhando a paciente ${pacienteAtual.nome}.`);
+                            document.getElementById('whatsappBtn').href = `https://wa.me/55${numLimpo}?text=${msg}`;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Erro paciente:", err);
+            }
+        }
+
+        async function salvarPacienteForm() {
+            const nome = document.getElementById('cadNomePaciente').value.trim();
+            const telPac = document.getElementById('cadTelPaciente').value.trim();
+            const nomeAcomp = document.getElementById('cadNomeAcompanhante').value.trim();
+            const telAcomp = document.getElementById('cadTelAcompanhante').value.trim();
+            const obs = document.getElementById('cadObsClinicas').value.trim();
+
+            if (!nome || !nomeAcomp || !telAcomp) {
+                mostrarFeedback('Preencha os campos obrigatórios do paciente.', 'error');
+                return;
+            }
+
+            const payload = {
+                id: pacienteAtual ? pacienteAtual.id : null,
+                nome: nome,
+                telefonePaciente: telPac,
+                nomeAcompanhante: nomeAcomp,
+                telefoneAcompanhante: telAcomp,
+                observacoesClinicas: obs
+            };
+
+            try {
+                const res = await fetch('/api/pacientes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (res.ok) {
+                    pacienteAtual = await res.json();
+                    document.getElementById('nomePaciente').innerText = pacienteAtual.nome;
+                    document.getElementById('nomeAcompanhante').innerText = pacienteAtual.nomeAcompanhante;
+                    document.getElementById('telAcompanhante').innerText = pacienteAtual.telefoneAcompanhante;
+                    mostrarFeedback('Dados do Paciente gravados com sucesso!', 'success');
+                }
+            } catch (e) {
+                mostrarFeedback('Erro ao conectar ao servidor.', 'error');
+            }
+        }
+
+        /* 2. MEDICAMENTOS COM CÁLCULO EXATO, ESTOQUE E OBSERVAÇÕES */
+        async function carregarMedicamentos() {
+            try {
+                const res = await fetch('/api/medicamentos');
+                if (res.ok) {
+                    medicamentosMemoria = await res.json();
+                    atualizarInterface();
+                }
+            } catch (err) {
+                console.error("Erro medicamentos:", err);
+            }
+        }
+
+        function somarHoras(horaBase, horasParaSomar) {
+            const [h, m] = horaBase.split(':').map(Number);
+            const novaHora = (h + horasParaSomar) % 24;
+            return `${String(novaHora).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+        }
+
+        async function salvarMedicamento() {
+            const id = document.getElementById('medId').value;
+            const nome = document.getElementById('nome');
+            const local = document.getElementById('localAdministracao');
+            const frequencia = document.getElementById('frequenciaAlerta').value;
+            const horario = document.getElementById('horarioAlerta');
+            const apresentacao = document.getElementById('apresentacao');
+            const quantidadeEstoque = document.getElementById('quantidadeEstoque');
+            const observacoes = document.getElementById('observacoes');
+
+            if (!nome.value.trim() || !apresentacao.value.trim()) {
+                mostrarFeedback('Preencha o nome e a posologia do medicamento.', 'error');
+                return;
+            }
+
+            let posologiaLimpa = apresentacao.value.trim().replace(/\[.*?\]\s*/g, '');
+            let etiquetaHorarios = '';
+
+            if (local.value === 'USO_DOMESTICO') {
+                if (frequencia === '12H') {
+                    const h1 = horario.value || '08:00';
+                    const h2 = somarHoras(h1, 12);
+                    etiquetaHorarios = `[${h1}, ${h2}]`;
+                } else if (frequencia === '8H') {
+                    const h1 = horario.value || '06:00';
+                    const h2 = somarHoras(h1, 8);
+                    const h3 = somarHoras(h1, 16);
+                    etiquetaHorarios = `[${h1}, ${h2}, ${h3}]`;
+                } else if (frequencia === '24H') {
+                    etiquetaHorarios = `[${horario.value || '08:00'}]`;
+                } else if (frequencia === 'REFEICOES') {
+                    etiquetaHorarios = `[12:00, 19:30]`;
+                }
+            }
+
+            const posologiaFinal = etiquetaHorarios ? `${etiquetaHorarios} ${posologiaLimpa}` : posologiaLimpa;
+
+            const payload = {
+                nome: nome.value.trim(),
+                apresentacao: posologiaFinal,
+                localAdministracao: local.value,
+                quantidadeEstoque: parseInt(quantidadeEstoque.value) || 0,
+                observacoes: observacoes.value.trim()
+            };
+
+            const endpoint = id ? `/api/medicamentos/${id}` : '/api/medicamentos';
+            const method = id ? 'PUT' : 'POST';
+
+            try {
+                const res = await fetch(endpoint, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (res.ok) {
+                    await carregarMedicamentos();
+                    cancelarEdicaoMed();
+                    mostrarFeedback(id ? 'Medicamento atualizado com sucesso!' : 'Medicamento cadastrado com sucesso!', 'success');
+                } else {
+                    mostrarFeedback('Falha ao processar medicamento no servidor.', 'error');
+                }
+            } catch (e) {
+                mostrarFeedback('Erro de conexão ao salvar medicamento.', 'error');
+            }
+        }
+
+        function prepararEdicaoMed(id) {
+            const med = medicamentosMemoria.find(m => String(m.id) === String(id));
+            if (!med) return;
+
+            alternarFormulario('MED');
+            document.getElementById('medId').value = med.id;
+            document.getElementById('nome').value = med.nome;
+            document.getElementById('localAdministracao').value = med.localAdministracao;
+            alternarCamposUsoDomestico();
+
+            let posologia = med.apresentacao;
+            const matchColchetes = posologia.match(/\[(.*?)\]/);
+            
+            if (matchColchetes) {
+                const horarios = matchColchetes[1].split(',').map(h => h.trim());
+                if (horarios.length === 2 && (horarios.includes('12:00') && horarios.includes('19:30'))) {
+                    document.getElementById('frequenciaAlerta').value = 'REFEICOES';
+                } else if (horarios.length === 2) {
+                    document.getElementById('frequenciaAlerta').value = '12H';
+                    document.getElementById('horarioAlerta').value = horarios[0];
+                } else if (horarios.length === 3) {
+                    document.getElementById('frequenciaAlerta').value = '8H';
+                    document.getElementById('horarioAlerta').value = horarios[0];
+                } else {
+                    document.getElementById('frequenciaAlerta').value = '24H';
+                    document.getElementById('horarioAlerta').value = horarios[0];
+                }
+                posologia = posologia.replace(/\[.*?\]\s*/, '');
+            }
+
+            ajustarExibicaoHorarios();
+            document.getElementById('apresentacao').value = posologia;
+            
+            document.getElementById('quantidadeEstoque').value = med.quantidadeEstoque !== undefined ? med.quantidadeEstoque : 0;
+            document.getElementById('observacoes').value = med.observacoes || '';
+
+            document.getElementById('btnSalvarMed').innerText = 'Atualizar Medicamento';
+            document.getElementById('btnCancelarMed').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function cancelarEdicaoMed() {
+            document.getElementById('medId').value = '';
+            document.getElementById('nome').value = '';
+            document.getElementById('apresentacao').value = '';
+            document.getElementById('quantidadeEstoque').value = '0';
+            document.getElementById('observacoes').value = '';
+            document.getElementById('btnSalvarMed').innerText = 'Salvar no Prontuário';
+            document.getElementById('btnCancelarMed').style.display = 'none';
+        }
+
+        async function confirmarDose(id, botao) {
+            const textoOriginal = botao.innerHTML;
+            botao.disabled = true;
+            botao.innerHTML = '⏳ Baixando...';
+
+            try {
+                const res = await fetch(`/api/medicamentos/${id}/confirmar-dose`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                if (res.ok) {
+                    const atualizado = await res.json();
+                    await carregarMedicamentos();
+
+                    const isDom = atualizado.localAdministracao === 'USO_DOMESTICO';
+                    const estoqueCritico = (isDom && atualizado.quantidadeEstoque <= 5) || (!isDom && atualizado.quantidadeEstoque > 0 && atualizado.quantidadeEstoque <= 2);
+                    const avisoReposicao = estoqueCritico 
+                        ? ` Atenção: restam apenas ${atualizado.quantidadeEstoque} doses!` 
+                        : '';
+
+                    mostrarFeedback(
+                        `Baixa de "${atualizado.nome}" confirmada! Recibo enviado no WhatsApp. Estoque: ${atualizado.quantidadeEstoque}.${avisoReposicao}`,
+                        'success'
+                    );
+                } else {
+                    const erro = await res.text();
+                    mostrarFeedback(`Atenção: ${erro || 'Não foi possível dar baixa no estoque.'}`, 'error');
+                    botao.disabled = false;
+                    botao.innerHTML = textoOriginal;
+                }
+            } catch (e) {
+                console.error("Erro ao confirmar dose:", e);
+                mostrarFeedback('Erro de conexão com o servidor Spring Boot.', 'error');
+                botao.disabled = false;
+                botao.innerHTML = textoOriginal;
+            }
+        }
+
+        async function excluirMedicamento(id, nome) {
+            if (!confirm(`Deseja realmente excluir "${nome}"?`)) return;
+
+            try {
+                const res = await fetch(`/api/medicamentos/${id}`, { method: 'DELETE' });
+                if (res.ok || res.status === 204) {
+                    medicamentosMemoria = medicamentosMemoria.filter(m => String(m.id) !== String(id));
+                    atualizarInterface();
+                    mostrarFeedback(`Medicamento "${nome}" excluído com sucesso!`, 'success');
+                } else {
+                    mostrarFeedback('Erro ao excluir medicamento no banco.', 'error');
+                }
+            } catch (e) {
+                mostrarFeedback('Erro de conexão ao excluir.', 'error');
+            }
+        }
+
+        /* 3. AGENDAMENTOS */
+        async function carregarAgendamentos() {
+            try {
+                const res = await fetch('/api/agendamentos');
+                if (res.ok) {
+                    agendamentosMemoria = await res.json();
+                    atualizarInterface();
+                }
+            } catch (err) {
+                console.error("Erro agendamentos:", err);
+            }
+        }
+
+        async function salvarAgendamento() {
+            if (!pacienteAtual) {
+                mostrarFeedback('Cadastre o paciente antes de agendar.', 'error');
+                return;
+            }
+
+            const id = document.getElementById('agendaId').value;
+            const tipoEvento = document.getElementById('tipoEvento').value;
+            const descricao = document.getElementById('descricaoEvento').value;
+            const localDestino = document.getElementById('localDestino').value;
+            const dataHora = document.getElementById('dataHora').value;
+            const precisaTransporte = document.getElementById('precisaTransporte').checked;
+
+            if (!descricao.trim() || !localDestino.trim() || !dataHora) {
+                mostrarFeedback('Preencha os campos obrigatórios do agendamento.', 'error');
+                return;
+            }
+
+            const payload = {
+                id: id ? id : null,
+                paciente: { id: pacienteAtual.id },
+                tipoEvento: tipoEvento,
+                descricao: descricao.trim(),
+                localDestino: localDestino.trim(),
+                dataHora: dataHora,
+                precisaTransporte: precisaTransporte,
+                lembreteEnviado: false
+            };
+
+            const endpoint = id ? `/api/agendamentos/${id}` : '/api/agendamentos';
+            const method = id ? 'PUT' : 'POST';
+
+            try {
+                const res = await fetch(endpoint, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (res.ok) {
+                    await carregarAgendamentos();
+                    cancelarEdicaoAgenda();
+                    mostrarFeedback(id ? 'Agendamento atualizado com sucesso!' : 'Agendamento registrado com sucesso!', 'success');
+                } else {
+                    mostrarFeedback('Erro ao processar agendamento.', 'error');
+                }
+            } catch (e) {
+                mostrarFeedback('Erro ao salvar agendamento.', 'error');
+            }
+        }
+
+        function prepararEdicaoAgenda(id) {
+            const ag = agendamentosMemoria.find(a => String(a.id) === String(id));
+            if (!ag) return;
+
+            alternarFormulario('AGENDA');
+            document.getElementById('agendaId').value = ag.id;
+            document.getElementById('tipoEvento').value = ag.tipoEvento;
+            document.getElementById('descricaoEvento').value = ag.descricao;
+            document.getElementById('localDestino').value = ag.localDestino;
+            
+            if (ag.dataHora) {
+                const d = new Date(ag.dataHora);
+                const isoStr = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+                document.getElementById('dataHora').value = isoStr;
+            }
+            document.getElementById('precisaTransporte').checked = !!ag.precisaTransporte;
+
+            document.getElementById('btnSalvarAgenda').innerText = 'Atualizar Compromisso';
+            document.getElementById('btnCancelarAgenda').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function cancelarEdicaoAgenda() {
+            document.getElementById('agendaId').value = '';
+            document.getElementById('descricaoEvento').value = '';
+            document.getElementById('localDestino').value = '';
+            document.getElementById('dataHora').value = '';
+            document.getElementById('precisaTransporte').checked = false;
+            document.getElementById('btnSalvarAgenda').innerText = 'Registrar na Agenda';
+            document.getElementById('btnCancelarAgenda').style.display = 'none';
+        }
+
+        async function concluirAgendamento(id, botao) {
+            const textoOriginal = botao.innerHTML;
+            botao.disabled = true;
+            botao.innerHTML = '⏳ Salvando...';
+
+            try {
+                const res = await fetch(`/api/agendamentos/${id}/concluir`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                if (res.ok) {
+                    const atualizado = await res.json();
+                    await carregarAgendamentos();
+                    mostrarFeedback(`Compromisso "${atualizado.descricao}" marcado como concluído!`, 'success');
+                } else {
+                    mostrarFeedback('Não foi possível concluir o agendamento.', 'error');
+                    botao.disabled = false;
+                    botao.innerHTML = textoOriginal;
+                }
+            } catch (e) {
+                console.error("Erro ao concluir agendamento:", e);
+                mostrarFeedback('Erro de conexão com o servidor.', 'error');
+                botao.disabled = false;
+                botao.innerHTML = textoOriginal;
+            }
+        }
+
+        async function excluirAgendamento(id, descricao) {
+            if (!confirm(`Deseja cancelar "${descricao}"?`)) return;
+
+            try {
+                const res = await fetch(`/api/agendamentos/${id}`, { method: 'DELETE' });
+                if (res.ok || res.status === 204) {
+                    agendamentosMemoria = agendamentosMemoria.filter(a => String(a.id) !== String(id));
+                    atualizarInterface();
+                    mostrarFeedback(`Agendamento "${descricao}" cancelado.`, 'success');
+                } else {
+                    mostrarFeedback('Erro ao excluir no servidor.', 'error');
+                }
+            } catch (e) {
+                mostrarFeedback('Erro de conexão ao excluir.', 'error');
+            }
+        }
+
+        /* RENDERIZAÇÃO */
+        function atualizarInterface() {
+            document.getElementById('count-todos').innerText = medicamentosMemoria.length;
+            document.getElementById('count-domestico').innerText = 
+                medicamentosMemoria.filter(m => m.localAdministracao === 'USO_DOMESTICO').length;
+            document.getElementById('count-clinica').innerText = 
+                medicamentosMemoria.filter(m => m.localAdministracao === 'CLINICA_HEMODIALISE').length;
+            document.getElementById('count-agenda').innerText = agendamentosMemoria.length;
+
+            renderizarCards();
+        }
+
+        function renderizarCards() {
+            const container = document.getElementById('listaConteudo');
+
+            if (abaAtiva === 'AGENDA') {
+                if (agendamentosMemoria.length === 0) {
+                    container.innerHTML = '<div style="text-align:center; padding: 40px; color: var(--text-dim); font-size:13px; font-weight:600;">Nenhum compromisso agendado.</div>';
+                    return;
+                }
+
+                container.innerHTML = agendamentosMemoria.map(ag => {
+                    const dataFormatada = new Date(ag.dataHora).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+                    const isConcluido = !!ag.concluido;
+                    const labelBotao = ag.tipoEvento === 'FARMACIA_ALTO_CUSTO' ? '✅ Retirado' : '✅ Concluir';
+
+                    return `
+                        <div class="stream-card" style="${isConcluido ? 'opacity: 0.72;' : ''}">
+                            <div class="card-core">
+                                <h4>${ag.descricao} (${ag.tipoEvento})</h4>
+                                <p>📍 ${ag.localDestino} | 🗓️ ${dataFormatada} ${ag.precisaTransporte ? '| 🚐 Transporte Solicitado' : ''}</p>
+                            </div>
+                            <div class="card-aside">
+                                ${!isConcluido ? `
+                                    <button type="button" class="btn-dose" onclick="concluirAgendamento('${ag.id}', this)">
+                                        ${labelBotao}
+                                    </button>
+                                ` : ''}
+                                <span class="status-chip ${isConcluido ? 'chip-home' : 'chip-agenda'}">
+                                    ${isConcluido ? 'Concluído' : 'Agendado'}
+                                </span>
+                                <div class="crud-actions">
+                                    <button class="btn-icon edit" title="Editar" onclick="prepararEdicaoAgenda('${ag.id}')">✏️</button>
+                                    <button class="btn-icon delete" title="Excluir" onclick="excluirAgendamento('${ag.id}', '${ag.descricao}')">🗑️</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                return;
+            }
+
+            let lista = medicamentosMemoria;
+            if (abaAtiva !== 'TODOS') {
+                lista = lista.filter(m => m.localAdministracao === abaAtiva);
+            }
+
+            if (lista.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding: 40px; color: var(--text-dim); font-size:13px; font-weight:600;">Nenhum medicamento registrado nesta categoria.</div>';
+                return;
+            }
+
+            container.innerHTML = lista.map(med => {
+                const isDom = med.localAdministracao === 'USO_DOMESTICO';
+                const qtd = med.quantidadeEstoque !== undefined && med.quantidadeEstoque !== null ? med.quantidadeEstoque : 0;
+                const alertaEstoqueCritico = (isDom && qtd <= 5) || (!isDom && qtd > 0 && qtd <= 2);
+                const labelBotaoDose = isDom ? '✅ Tomei a Dose' : '✅ Aplicado na Sessão';
+
+                return `
+                    <div class="stream-card">
+                        <div class="card-core">
+                            <h4>${med.nome}</h4>
+                            <p>${med.apresentacao}</p>
+                            
+                            <div class="card-metadata">
+                                <span class="meta-tag ${alertaEstoqueCritico ? 'stock-low' : 'stock-ok'}">
+                                    📦 Estoque: <strong>${qtd}</strong> ${qtd === 1 ? 'dose/unidade' : 'doses/unidades'} ${alertaEstoqueCritico ? '⚠️ (Repor)' : ''}
+                                </span>
+                                ${med.observacoes ? `
+                                    <span class="meta-tag obs" title="${med.observacoes}">
+                                        📝 Conduta: ${med.observacoes}
+                                    </span>
+                                ` : ''}
+                            </div>
+                        </div>
+                        <div class="card-aside">
+                            <button type="button" class="btn-dose" onclick="confirmarDose('${med.id}', this)" ${qtd <= 0 ? 'disabled' : ''}>
+                                ${labelBotaoDose}
+                            </button>
+                            <span class="status-chip ${isDom ? 'chip-home' : 'chip-clinic'}">
+                                ${isDom ? '🏠 Em Casa' : '🏥 Clínica'}
+                            </span>
+                            <div class="crud-actions">
+                                <button class="btn-icon edit" title="Editar" onclick="prepararEdicaoMed('${med.id}')">✏️</button>
+                                <button class="btn-icon delete" title="Excluir" onclick="excluirMedicamento('${med.id}', '${med.nome}')">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filtrarAba(aba) {
+            abaAtiva = aba;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if (aba === 'TODOS') document.getElementById('tab-todos').classList.add('active');
+            if (aba === 'USO_DOMESTICO') document.getElementById('tab-domestico').classList.add('active');
+            if (aba === 'CLINICA_HEMODIALISE') document.getElementById('tab-clinica').classList.add('active');
+            if (aba === 'AGENDA') document.getElementById('tab-agenda').classList.add('active');
+            renderizarCards();
+        }
+
+        function alternarFormulario(tipo) {
+            const pacForm = document.getElementById('pacienteForm');
+            const medForm = document.getElementById('medForm');
+            const agendaForm = document.getElementById('agendaForm');
+
+            const btnPac = document.getElementById('btn-tab-paciente');
+            const btnMed = document.getElementById('btn-tab-med');
+            const btnAgenda = document.getElementById('btn-tab-agenda');
+
+            pacForm.style.display = 'none';
+            medForm.style.display = 'none';
+            agendaForm.style.display = 'none';
+
+            btnPac.classList.remove('active');
+            btnMed.classList.remove('active');
+            btnAgenda.classList.remove('active');
+
+            if (tipo === 'PACIENTE') {
+                pacForm.style.display = 'block';
+                btnPac.classList.add('active');
+            } else if (tipo === 'MED') {
+                medForm.style.display = 'block';
+                btnMed.classList.add('active');
+            } else {
+                agendaForm.style.display = 'block';
+                btnAgenda.classList.add('active');
+            }
+        }
+
+        function mostrarFeedback(mensagem, tipo) {
+            const feedback = document.getElementById('feedback');
+            feedback.className = `toast ${tipo}`;
+            feedback.innerText = mensagem;
+            feedback.style.display = 'block';
+            setTimeout(() => { feedback.style.display = 'none'; }, 4000);
+        }
+    </script>
+</body>
+</html>
